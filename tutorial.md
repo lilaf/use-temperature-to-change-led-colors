@@ -1,5 +1,13 @@
 # Use Temperature Data to Change LED colors
 
+## Introduction @unplugged
+
+Welcome! This tutorial will teach you how to program your LEDs using temperature data.
+
+## Import Extensions
+
+Go to ||basic:on start|| block. 
+
 ## Set up the LEDs
 
 
@@ -25,12 +33,10 @@ basic.forever(function () {
     }
     strip.show()
 })
-
 ```
 
-```package
+``` package
 neopixel=github:microsoft/pxt-neopixel#v0.7.3
-grove=github:Seeed-Studio/pxt-grove#v0.1.7
-pxt-dht11_dht22=github:profdetech/microbit-pxt#v0.0.2
-
+pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
 ```
+
