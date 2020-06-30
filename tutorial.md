@@ -2,84 +2,144 @@
 
 ## Introduction @unplugged
 
-Welcome! This tutorial will teach you how to program your LEDs using temperature data.
-
-## Import Extensions
-
-Click on the `Advanced` and then the `Extensions` drawers. Search for and download the Neopixel and DHT11_DHT22 packages. 
-
-## Set up the LEDs
-
-First let's set up the LED strip.
-
-Grab a ``||neopixel:set strip||`` block and place it in the ``||basic:on start||`` block.
-
-Notice the `Pin` is set to P2. This is the pin your lights should be physically connected to on your micro:bit.
-
-``` blocks
-let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
-```
-
-## Set up variables for Temperature
-
-Sensor reads in Celsius, need to convert for Fahrenheit.
-Set high temp for plants (72)
-
-``` blocks
-let TempF = 0
-let TempC = 0
-let HighTemp = 72
-```
+Welcome! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
 
 ## Start sensor collecting data
 
+Let's begin by telling the sensor to collect data. 
+
+Grab a ``||DHT11_DHT22:Query||`` block and drag it into the ``||basic:forever||`` block.  Be sure all of the ``||Logic:true/false||`` statemetns say `True`.
+
 ``` blocks
-dht11_dht22.queryData(
+basic.forever(function () {
+    dht11_dht22.queryData(
     DHTtype.DHT22,
     DigitalPin.P0,
     true,
     true,
     true
     )
-
+})
 ```
+## Set up variable for C Temperature
 
-## Read the Temperature
+Next, let's set up a variable to store the temperature data in Celsius.
 
-Read the temp and store it as a variable
+First, choose ``||Variables:Make a Variable||`` in the `Variables` drawer and then give your variable a name (such as TempC). 
+
+Grab a ``||variables:set||`` block and place it in the ``||basic:forever||`` loop. Grab a ``||DHT11_DHT22:read||`` block and place it in the ``||variables:set||`` block. Change the drop down to be temperature.
 
 ``` blocks
-TempC = dht11_dht22.readData(dataType.temperature)
+basic.forever(function () {
+    dht11_dht22.queryData(
+    DHTtype.DHT22,
+    DigitalPin.P0,
+    true,
+    true,
+    true
+    )
+    TempC = dht11_dht22.readData(dataType.temperature)
+})
 ```
 
-## Convert C to Fahrenheit
+## set up to convert C to Fahrenheit
+
+Since we are more familar with Fahrenheit, let's make a variable for temperature in Fahrenheit and convert Celsius to Fahrenheit.
+
+First, set up another variable by using the ``||variables:Make a Variable||`` button, name it (e.g., TempF).
+
+Grab a ``||variables:set||`` block and place it in the ``||basic:forever||`` block. Make sure the drop down menu is for the Fahrenheit temperature variable (e.g., TempF). Use the ``||math:Math||`` blocks to set up an equation for converting Celsius to Fahrenheit. Use the ``||Variables:TempC||`` block for the Celsius temperature.
 
 ``` blocks
-TempF = TempC * (9 / 5) + 32
+basic.forever(function () {
+    dht11_dht22.queryData(
+    DHTtype.DHT22,
+    DigitalPin.P0,
+    true,
+    true,
+    true
+    )
+    TempC = dht11_dht22.readData(dataType.temperature)
+    TempF = TempC * (9 / 5) + 32
+})
+```
+## Set up a high temperature value
+
+Since plant's cannot be at high temperatures, let's set a high limit for the temperature, maybe 72F.
+
+Set up another ``||Variables:variable||`` to be for the high temperature. This time ``||variables:set||`` the value to your chosen max temperature (72 in this case).
+
+``` blocks
+let HighTemp = 72
+```
+
+## Set up the LEDs
+
+Now we are ready to set up the neopixels (LEDs).
+
+Grab a ``||neopixel:set strip||`` block and place it in the ``||basic:on start||`` block.
+
+You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit.
+
+``` blocks
+let HighTemp = 72
+let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
 ```
 
 ## Set up the conditional
 
+We can use an if-then-else statement to change the color when the temperature is above or below our high temperature.
+
+Grab an ``||Logic:if-then-else||`` statement and add it to the ``||basic:forever||`` block. Add a ``||Logic:less than||`` block and add it to the ``||Logic:if||`` statement. Change the ``||Logic:less than||`` to read ``||Variables:TempF||`` > ``||Variables:HighTemp||``.
+
 ``` blocks
-    if (TempF > 72) {
+    basic.forever(function () {
+    dht11_dht22.queryData(
+    DHTtype.DHT22,
+    DigitalPin.P0,
+    true,
+    true,
+    true
+    )
+    TempC = dht11_dht22.readData(dataType.temperature)
+    TempF = TempC * (9 / 5) + 32
+    if (TempF > HighTemp) {
     } else {
     }
+})
 ```
 
 ## Set up what happens inside the conditional (orange and blue lights)
 
+Now choose your colors for above and below the high temperature value!
+
+Grab a ``||neopixel:show color||`` block and add it to the ``||Logic:if||`` statement. Repeat this for the ``||Logic:else||`` part of the statement. Choose two colors from the dropdown menu.
+
 ``` blocks
-    strip.showColor(neopixel.colors(NeoPixelColors.Orange))
-    strip.showColor(neopixel.colors(NeoPixelColors.Blue))
-    strip.show()
+basic.forever(function () {
+    dht11_dht22.queryData(
+    DHTtype.DHT22,
+    DigitalPin.P0,
+    true,
+    true,
+    true
+    )
+    TempC = dht11_dht22.readData(dataType.temperature)
+    TempF = TempC * (9 / 5) + 32
+    if (TempF > HighTemp) {
+        strip.showColor(neopixel.colors(NeoPixelColors.Orange))
+    } else {
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+    }
+})
 ```
+## Turn the lights on
 
+The final step is to turn the lights.
+
+Drag a ``||neopixel:show||`` block to after the ``||Logic:if-then-else||`` statement.
 
 ``` blocks
-let TempF = 0
-let TempC = 0
-let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
-let HighTemp = 72
 basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
@@ -98,6 +158,11 @@ basic.forever(function () {
     strip.show()
 })
 ```
+
+## Turn the lights on
+
+Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
+
 
 ``` package
 neopixel=github:microsoft/pxt-neopixel#v0.7.3
