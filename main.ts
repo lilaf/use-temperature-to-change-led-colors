@@ -12,7 +12,7 @@ basic.forever(function () {
     )
     TempC = dht11_dht22.readData(dataType.temperature)
     TempF = TempC * (9 / 5) + 32
-    if (TempF > 72) {
+    if (TempF > HighTemp) {
         strip.showColor(neopixel.colors(NeoPixelColors.Orange))
     } else {
         strip.showColor(neopixel.colors(NeoPixelColors.Blue))

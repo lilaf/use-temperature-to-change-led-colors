@@ -44,11 +44,11 @@ basic.forever(function () {
 
 ## set up to convert C to Fahrenheit
 
-Since we are more familar with Fahrenheit, let's make a variable for temperature in Fahrenheit and convert Celsius to Fahrenheit.
+Since we are more familar with Fahrenheit, let's convert Celsius to Fahrenheit.
 
-First, set up another variable by using the ``||variables:Make a Variable||`` button, name it (e.g., TempF).
+First, set up and name (e.g., TempF) another variable by using the ``||variables:Make a Variable||`` button.
 
-Grab a ``||variables:set||`` block and place it in the ``||basic:forever||`` block. Make sure the drop down menu is for the Fahrenheit temperature variable (e.g., TempF). Use the ``||math:Math||`` blocks to set up an equation for converting Celsius to Fahrenheit. Use the ``||Variables:TempC||`` block for the Celsius temperature.
+Next, grab a ``||variables:set||`` block for your Fahrenheit variable (TempF) and place it in the ``||basic:forever||`` block. Use the ``||math:Math||`` blocks to set up an equation for converting Celsius to Fahrenheit. Use the ``||Variables:TempC||`` block for the Celsius temperature. Check out the hint section if you aren't sure how to setup this equation.
 
 ``` blocks
 basic.forever(function () {
@@ -65,7 +65,7 @@ basic.forever(function () {
 ```
 ## Set up a high temperature value
 
-Since plant's cannot be at high temperatures, let's set a high limit for the temperature, maybe 72F.
+Since plants do not like too high temperatures, let's set a high limit for the temperature, maybe 72F.
 
 Set up another ``||Variables:variable||`` to be for the high temperature. This time ``||variables:set||`` the value to your chosen max temperature (72 in this case).
 
@@ -79,7 +79,7 @@ Now we are ready to set up the neopixels (LEDs).
 
 Grab a ``||neopixel:set strip||`` block and place it in the ``||basic:on start||`` block.
 
-You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit.
+You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit. Check out the picture on the LEaFS website and make sure your setup looks correct!
 
 ``` blocks
 let HighTemp = 72
@@ -93,7 +93,10 @@ We can use an if-then-else statement to change the color when the temperature is
 Grab an ``||Logic:if-then-else||`` statement and add it to the ``||basic:forever||`` block. Add a ``||Logic:less than||`` block and add it to the ``||Logic:if||`` statement. Change the ``||Logic:less than||`` to read ``||Variables:TempF||`` > ``||Variables:HighTemp||``.
 
 ``` blocks
-    basic.forever(function () {
+let HighTemp = 72
+let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
+
+basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
     DigitalPin.P0,
@@ -116,6 +119,9 @@ Now choose your colors for above and below the high temperature value!
 Grab a ``||neopixel:show color||`` block and add it to the ``||Logic:if||`` statement. Repeat this for the ``||Logic:else||`` part of the statement. Choose two colors from the dropdown menu.
 
 ``` blocks
+let HighTemp = 72
+let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
+
 basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
@@ -140,6 +146,9 @@ The final step is to turn the lights.
 Drag a ``||neopixel:show||`` block to after the ``||Logic:if-then-else||`` statement.
 
 ``` blocks
+let HighTemp = 72
+let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
+
 basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
