@@ -173,7 +173,6 @@ basic.forever(function () {
 Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
 
 
-
 ``` package
 neopixel=github:microsoft/pxt-neopixel#v0.7.3
 pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
