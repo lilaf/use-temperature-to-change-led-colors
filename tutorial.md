@@ -4,6 +4,11 @@
 
 Welcome! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
 
+``` package
+neopixel=github:microsoft/pxt-neopixel#v0.7.3
+pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
+```
+
 ## Step 2: Start sensor collecting data
 
 Let's begin by telling the sensor to collect data. 
@@ -172,8 +177,3 @@ basic.forever(function () {
 
 Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
 
-
-``` package
-neopixel=github:microsoft/pxt-neopixel#v0.7.3
-pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
-```
