@@ -1,25 +1,5 @@
 # Use Temperature Data to Change LED colors
 
-```ghost
-dht11_dht22.queryData(
-    DHTtype.DHT22,
-    DigitalPin.P0,
-    true,
-    true,
-    true
-    )
-dht11_dht22.readData(dataType.temperature)
-strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
-strip.show()
-```
-
-``` package
-neopixel=github:microsoft/pxt-neopixel#v0.7.3
-pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
-```
-
-
-
 ## Step 1: Introduction @unplugged
 
 Welcome! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
@@ -192,3 +172,9 @@ basic.forever(function () {
 
 Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
 
+
+
+``` package
+neopixel=github:microsoft/pxt-neopixel#v0.7.3
+pxt-DHT11_DHT22=github:alankrantas/pxt-DHT11_DHT22#v0.0.2
+```
