@@ -1,10 +1,10 @@
 # Use Temperature Data to Change LED colors
 
-## Introduction @unplugged
+## Step 1: Introduction @unplugged
 
 Welcome! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
 
-## Start sensor collecting data
+## Step 2: Start sensor collecting data
 
 Let's begin by telling the sensor to collect data. 
 
@@ -21,7 +21,7 @@ basic.forever(function () {
     )
 })
 ```
-## Set up variable for C Temperature
+## Step 3: Set up variable for C Temperature
 
 Next, let's set up a variable to store the temperature data in Celsius.
 
@@ -42,7 +42,7 @@ basic.forever(function () {
 })
 ```
 
-## set up to convert C to Fahrenheit
+## Step 4: set up to convert C to Fahrenheit
 
 Since we are more familar with Fahrenheit, let's convert Celsius to Fahrenheit.
 
@@ -63,30 +63,30 @@ basic.forever(function () {
     TempF = TempC * (9 / 5) + 32
 })
 ```
-## Set up a high temperature value
+## Step 5: Set up a high temperature value
 
 Since plants do not like too high temperatures, let's set a high limit for the temperature, maybe 72F.
 
-Set up another ``||Variables:variable||`` to be for the high temperature. This time ``||variables:set||`` the value to your chosen max temperature (72 in this case).
+Set up another ``||Variables:variable||`` to be for the high temperature and add it to the ``||basic:on start||`` block. This time ``||variables:set||`` the value to your chosen max temperature (72 in this case).
 
 ``` blocks
 let HighTemp = 72
 ```
 
-## Set up the LEDs
+## Step 6: Set up the LEDs
 
 Now we are ready to set up the neopixels (LEDs).
 
 Grab a ``||neopixel:set strip||`` block and place it in the ``||basic:on start||`` block.
 
-You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit. Check out the picture on the LEaFS website and make sure your setup looks correct!
+You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit. Check out the picture on the LEaFS website (bit.ly/LEaFS-E1) and make sure your setup looks correct!
 
 ``` blocks
 let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
 ```
 
-## Set up the conditional
+## Step 7: Set up the conditional
 
 We can use an if-then-else statement to change the color when the temperature is above or below our high temperature.
 
@@ -112,7 +112,7 @@ basic.forever(function () {
 })
 ```
 
-## Set up what happens inside the conditional (orange and blue lights)
+## Step 8: Set up what happens inside the conditional (orange and blue lights)
 
 Now choose your colors for above and below the high temperature value!
 
@@ -139,7 +139,7 @@ basic.forever(function () {
     }
 })
 ```
-## Turn the lights on
+## Step 9: Turn the lights on
 
 The final step is to turn the lights.
 
@@ -168,7 +168,7 @@ basic.forever(function () {
 })
 ```
 
-## Turn the lights on
+## Step 10: Download your program
 
 Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
 
