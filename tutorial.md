@@ -2,77 +2,13 @@
 
 ## Step 1: Introduction @unplugged
 
-Welcome! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
+Welcome! Now that you know how to check the temperature and convert it from Celsius to Fahrenheit you are ready to start using that data to change the color of you LEDs! This tutorial will teach you how to change your LEDs from one color to another when the temperature of your garden is too high.
 
-## Step 2: Start sensor collecting data
+## Step 2: Check template code
 
-Let's begin by telling the sensor to collect data. 
+Let's start from what you learned last time. Check out the code provided below. This code will collect temperature data and converts it from Celsius to Fahrenheit. Once you have looked this over, move on to the next step!
 
-Grab a ``||DHT11_DHT22:Query||`` block and drag it into the ``||basic:forever||`` block.  Be sure the query statment is set to DHT22, the data pin is set to P0, and all of the ``||Logic:true/false||`` statemetns say `True`.
-
-``` blocks
-basic.forever(function () {
-    dht11_dht22.queryData(
-    DHTtype.DHT22,
-    DigitalPin.P0,
-    true,
-    true,
-    true
-    )
-})
-```
-## Step 3: Set up variable for C Temperature
-
-Next, let's set up a variable to store the temperature data in Celsius.
-
-First, choose ``||Variables:Make a Variable||`` in the `Variables` drawer and then give your variable a name (such as TempC). 
-
-Grab a ``||variables:set||`` block and place it in the ``||basic:forever||`` loop. Grab a ``||DHT11_DHT22:read||`` block and place it in the ``||variables:set||`` block. Change the drop down to be temperature.
-
-``` blocks
-basic.forever(function () {
-    dht11_dht22.queryData(
-    DHTtype.DHT22,
-    DigitalPin.P0,
-    true,
-    true,
-    true
-    )
-    TempC = dht11_dht22.readData(dataType.temperature)
-})
-```
-
-## Step 4: set up to convert C to Fahrenheit
-
-Since we are more familar with Fahrenheit, let's convert Celsius to Fahrenheit.
-
-First, set up and name (e.g., TempF) another variable by using the ``||variables:Make a Variable||`` button.
-
-Next, grab a ``||variables:set||`` block for your Fahrenheit variable (TempF) and place it in the ``||basic:forever||`` block. 
-``` blocks
-basic.forever(function () {
-    dht11_dht22.queryData(
-    DHTtype.DHT22,
-    DigitalPin.P0,
-    true,
-    true,
-    true
-    )
-    TempC = dht11_dht22.readData(dataType.temperature)
-    TempF = TempC * (9 / 5) + 32
-})
-```
-
-## Step 5: Convert C to Fahrenheit
-
-Now let's use the ``||Math||`` blocks to set up our equation: F = (C * 9/5 ) + 32
-
-To keep the order of operations correct, let's start with an ``||math:addition||`` block and add it to the ``||variables:set TempF to||`` block. Then get a ``||math:division||`` block and add it to the first `0` on the addition block and a `32` to the other zero. In the division block add a ``||math:multiplication||`` block to the first zero and a 5 in the second zero. In the multiplication block add a ``||variables:TempC||`` block to the first zero and 9 to the second zero.
-
-Use the hint section to check your equation setup!
-
-
-``` blocks
+``` template
 basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
@@ -86,17 +22,17 @@ basic.forever(function () {
 })
 ```
 
-## Step 6: Set up a high temperature value
+## Step 3: Set up a high temperature value
 
 Since plants do not like too high temperatures, let's set a high limit for the temperature, maybe 72F.
 
-Set up another ``||Variables:variable||`` to be for the high temperature and add it to the ``||basic:on start||`` block. This time ``||variables:set||`` the value to your chosen max temperature (72 in this case).
+Set up a ``||Variables:variable||`` for the high temperature and add it to the ``||basic:on start||`` block. ``||variables:Set||`` the value to your chosen max temperature (72 in this case).
 
 ``` blocks
 let HighTemp = 72
 ```
 
-## Step 7: Set up the LEDs
+## Step 4: Set up the LEDs
 
 Now we are ready to set up the neopixels (LEDs).
 
@@ -109,7 +45,7 @@ let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
 ```
 
-## Step 8: Set up the conditional
+## Step 5: Set up the conditional
 
 We can use an if-then-else statement to change the color when the temperature is above or below our high temperature.
 
@@ -128,14 +64,14 @@ basic.forever(function () {
     true
     )
     TempC = dht11_dht22.readData(dataType.temperature)
-    TempF = TempC * (9 / 5) + 32
+    TempF = ((TempC * 9) / 5) + 32
     if (TempF > HighTemp) {
     } else {
     }
 })
 ```
 
-## Step 9: Set up what happens inside the conditional (orange and blue lights)
+## Step 6: Set up what happens inside the conditional (orange and blue lights)
 
 Now choose your colors for above and below the high temperature value!
 
@@ -154,7 +90,7 @@ basic.forever(function () {
     true
     )
     TempC = dht11_dht22.readData(dataType.temperature)
-    TempF = TempC * (9 / 5) + 32
+    TempF = ((TempC * 9) / 5) + 32
     if (TempF > HighTemp) {
         strip.showColor(neopixel.colors(NeoPixelColors.Orange))
     } else {
@@ -162,7 +98,7 @@ basic.forever(function () {
     }
 })
 ```
-## Step 10: Turn the lights on
+## Step 7: Turn the lights on
 
 The final step is to turn the lights.
 
@@ -181,7 +117,7 @@ basic.forever(function () {
     true
     )
     TempC = dht11_dht22.readData(dataType.temperature)
-    TempF = TempC * (9 / 5) + 32
+    TempF = (TempC * 9)) / 5) + 32
     if (TempF > 72) {
         strip.showColor(neopixel.colors(NeoPixelColors.Orange))
     } else {
@@ -191,7 +127,7 @@ basic.forever(function () {
 })
 ```
 
-## Step 11: Download your program
+## Step 8: Download your program
 
 Now you're ready to download your code! Press the ``|Download|`` button to save the code to your computer.
 
