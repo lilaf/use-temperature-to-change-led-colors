@@ -1,4 +1,5 @@
 # Use Temperature Data to Change LED colors
+### @explicitHints true
 
 ## Step 1: Introduction @unplugged
 
@@ -8,7 +9,7 @@ Welcome! Now that you know how to check the temperature and convert it from Cels
 
 Let's start from what you learned last time. Check out the code provided below. This code will collect temperature data and converts it from Celsius to Fahrenheit. Once you have looked this over, move on to the next step!
 
-``` template
+```template
 basic.forever(function () {
     dht11_dht22.queryData(
     DHTtype.DHT22,
@@ -26,8 +27,9 @@ basic.forever(function () {
 
 Since plants do not like too high temperatures, let's set a high limit for the temperature, maybe 72F.
 
-Set up a ``||Variables:variable||`` for the high temperature and add it to the ``||basic:on start||`` block. ``||variables:Set||`` the value to your chosen max temperature (72 in this case).
+First, drag an ``||basic:on start||`` block to the coding area. Next, set up a ``||Variables:variable||`` for the high temperature and add it to the ``||basic:on start||`` block. ``||variables:Set||`` the value to your chosen max temperature (72 in this case).
 
+#### ~ tutorialhint
 ``` blocks
 let HighTemp = 72
 ```
@@ -40,6 +42,7 @@ Grab a ``||neopixel:set strip||`` block and place it in the ``||basic:on start||
 
 You may need to change the `Neopixel at pin` to `P2` with 30 lights. This is the pin your strand of 30 lights should be physically connected to on your micro:bit. Check out the picture on the LEaFS website (bit.ly/LEaFS-E1) and make sure your setup looks correct!
 
+#### ~ tutorialhint
 ``` blocks
 let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
@@ -51,6 +54,7 @@ We can use an if-then-else statement to change the color when the temperature is
 
 Grab an ``||Logic:if-then-else||`` statement and add it to the ``||basic:forever||`` block. Add a ``||Logic:less than||`` block and add it to the ``||Logic:if||`` statement. Change the ``||Logic:less than||`` to read ``||Variables:TempF||`` > ``||Variables:HighTemp||``.
 
+#### ~ tutorialhint
 ``` blocks
 let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
@@ -75,8 +79,9 @@ basic.forever(function () {
 
 Now choose your colors for above and below the high temperature value!
 
-Grab a ``||neopixel:show color||`` block and add it to the ``||Logic:if||`` statement. Repeat this for the ``||Logic:else||`` part of the statement. Choose two colors from the dropdown menu.
+Grab a ``||neopixel:show color||`` block, add it to the ``||Logic:if||`` statement, and select a color from the dropdown menu. Repeat this for the ``||Logic:else||`` part of the statement (and make sure you pick a different color).
 
+#### ~ tutorialhint
 ``` blocks
 let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
@@ -104,6 +109,7 @@ The final step is to turn the lights.
 
 Drag a ``||neopixel:show||`` block to after the ``||Logic:if-then-else||`` statement.
 
+#### ~ tutorialhint
 ``` blocks
 let HighTemp = 72
 let strip = neopixel.create(DigitalPin.P2, 30, NeoPixelMode.RGB)
@@ -117,7 +123,7 @@ basic.forever(function () {
     true
     )
     TempC = dht11_dht22.readData(dataType.temperature)
-    TempF = (TempC * 9)) / 5) + 32
+    TempF = ((TempC * 9) / 5) + 32
     if (TempF > 72) {
         strip.showColor(neopixel.colors(NeoPixelColors.Orange))
     } else {
